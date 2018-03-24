@@ -23,3 +23,8 @@ const generateBoard = function(){
         cards[el[0]].firstChild.classList.add("fa-"+icons[el[1]]);
     });
 }();
+let board = document.getElementsByClassName("deck")[0];
+board.addEventListener("click", function(e){
+    console.log(e);
+    e.target.classList.add("open", "show");
+})
