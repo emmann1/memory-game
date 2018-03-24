@@ -1,0 +1,1 @@
+let icons = ["code-branch", "angular", "docker", "google", "git", "medium", "php", "react", "code", "telegram", "vuejs", "wordpress", "android"];
