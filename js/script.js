@@ -52,9 +52,17 @@ board.addEventListener("click", function(e){
                 document.querySelector(".stars").firstElementChild.remove();
             }
         }
-    }
-    const matchedCards = document.getElementsByClassName("match");
-    if(matchedCards.length == 16){
-        winCondition = true;
-    }
+        const matchedCards = document.getElementsByClassName("match");
+        if(matchedCards.length == 16){
+            winCondition = true;
+            document.querySelector(".modal-backdrop").setAttribute("style", "display:block;");
+            document.querySelector(".modal").removeAttribute("close");
+            document.querySelector(".modal").setAttribute("open","");
+            document.querySelector(".modal-backdrop").addEventListener("click", function(e){
+                if(e.target == document.querySelector(".modal-backdrop")){
+                    document.querySelector(".modal-backdrop").removeAttribute("style", "display:block;");
+                }
+            });
+        }
+    } 
 });
