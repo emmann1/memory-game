@@ -23,8 +23,17 @@ const generateBoard = function(){
         cards[el[0]].firstChild.classList.add("fa-"+icons[el[1]]);
     });
 }();
-let board = document.getElementsByClassName("deck")[0];
+let board = document.querySelector(".deck");
+let match = [];
 board.addEventListener("click", function(e){
-    console.log(e);
     e.target.classList.add("open", "show");
-})
+    match.push(e.target.firstChild.className);
+    console.log(match);
+    if(match.length == 2){
+        if(match[0] == match[1]){
+            console.log(document.getElementsByClassName(match[0]).parentElement);
+        }
+        match = [];
+    }
+});
+
