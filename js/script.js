@@ -23,12 +23,10 @@ const generateBoard = function(){
     });
 }();
 let board = document.querySelector(".deck");
-let match = [];
 var selectedCards = [];
 board.addEventListener("click", function(e){
     if(e.target.classList.contains("card") && !e.target.classList.contains("match") && !e.target.classList.contains("show")){
         selectedCards.push(e.target);
-        console.log(selectedCards);
         e.target.classList.add("show", "open");
         if(selectedCards.length == 2){
             if(selectedCards[0].firstChild.classList.value == selectedCards[1].firstChild.classList.value){
