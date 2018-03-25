@@ -24,6 +24,8 @@ const generateBoard = function(){
 }();
 let board = document.querySelector(".deck");
 var selectedCards = [];
+let winCondition = false;
+let moves = 0;
 board.addEventListener("click", function(e){
     if(e.target.classList.contains("card") && !e.target.classList.contains("match") && !e.target.classList.contains("show")){
         selectedCards.push(e.target);
@@ -44,7 +46,15 @@ board.addEventListener("click", function(e){
                     selectedCards = [];
                 },100);
             }
+            moves++;
+            document.querySelector(".moves").innerHTML = moves;
+            if(moves == 22 || moves == 35 || moves == 50){
+                document.querySelector(".stars").firstElementChild.remove();
+            }
         }
     }
+    const matchedCards = document.getElementsByClassName("match");
+    if(matchedCards.length == 16){
+        winCondition = true;
+    }
 });
-
