@@ -17,7 +17,6 @@ const generateBoard = function(){
     for(let i=0;i<positions.length;i++){
         newArray.push([positions[i],iconSet[Math.floor(i/2)]]);
     };
-    console.log(newArray);
     let cards = document.getElementsByClassName("card");
     newArray.forEach(function(el){
         cards[el[0]].firstChild.classList.add("fa-"+icons[el[1]]);
@@ -25,15 +24,29 @@ const generateBoard = function(){
 }();
 let board = document.querySelector(".deck");
 let match = [];
+var selectedCards = [];
 board.addEventListener("click", function(e){
-    e.target.classList.add("open", "show");
-    match.push(e.target.firstChild.className);
-    console.log(match);
-    if(match.length == 2){
-        if(match[0] == match[1]){
-            console.log(document.getElementsByClassName(match[0]).parentElement);
+    if(e.target.classList.contains("card") && !e.target.classList.contains("match") && !e.target.classList.contains("show")){
+        selectedCards.push(e.target);
+        console.log(selectedCards);
+        e.target.classList.add("show", "open");
+        if(selectedCards.length == 2){
+            if(selectedCards[0].firstChild.classList.value == selectedCards[1].firstChild.classList.value){
+                selectedCards[0].classList.add("match");
+                selectedCards[0].classList.remove("show", "open");
+                selectedCards[1].classList.add("match");
+                selectedCards[1].classList.remove("show", "open");
+                selectedCards = [];
+            }else{
+                selectedCards[0].classList.add("notmatch");
+                selectedCards[1].classList.add("notmatch");
+                setTimeout(function(){
+                    selectedCards[0].classList.remove("show", "open", "notmatch");
+                    selectedCards[1].classList.remove("show", "open", "notmatch");
+                    selectedCards = [];
+                },100);
+            }
         }
-        match = [];
     }
 });
 
