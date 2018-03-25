@@ -10,7 +10,7 @@ function generateRandom(length, maxValue){
     }
     return result;
 }
-const generateBoard = function(){
+let generateBoard = function(){
     let iconSet = generateRandom(8,12);
     let positions = generateRandom(16,16);
     let newArray = [];
