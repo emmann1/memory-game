@@ -134,6 +134,7 @@ h1 {
 .confirmation {
     display: inline;
     margin: 0 10px;
+    cursor: pointer;
 }
 
 .modal-backdrop {

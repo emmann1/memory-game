@@ -10,7 +10,7 @@ function generateRandom(length, maxValue){
     }
     return result;
 }
-let generateBoard = function(){
+function generateBoard(){
     let iconSet = generateRandom(8,12);
     let positions = generateRandom(16,16);
     let newArray = [];
@@ -19,13 +19,38 @@ let generateBoard = function(){
     };
     let cards = document.getElementsByClassName("card");
     newArray.forEach(function(el){
-        cards[el[0]].firstChild.classList.add("fa-"+icons[el[1]]);
+        cards[el[0]].firstChild.removeAttribute("class");
+        cards[el[0]].firstChild.classList.add("fa", "fa-"+icons[el[1]]);
     });
-}();
+};
+generateBoard();
+
+function resetBoard(){
+    setTimeout(generateBoard,550);
+    moves = 0;
+    for(let i=0;i<board.children.length;i++){
+        board.children[i].classList.remove("show", "open", "match");
+    }
+    selectedCards = [];
+    document.querySelector(".moves").innerHTML = moves;
+    let stars = document.querySelector(".stars").children.length;
+    while(stars < 3){
+        let li = document.createElement("LI");
+        let i = document.createElement("I");
+        i.classList.add("fa", "fa-star");
+        li.appendChild(i);
+        document.querySelector(".stars").appendChild(li);
+        stars++;
+    }
+};
 let board = document.querySelector(".deck");
 var selectedCards = [];
 let winCondition = false;
 let moves = 0;
+let resetButton = document.querySelector(".restart").firstElementChild;
+let confirmReplay = document.getElementById("yes");
+let disfirmReplay = document.getElementById("no");
+
 board.addEventListener("click", function(e){
     if(e.target.classList.contains("card") && !e.target.classList.contains("match") && !e.target.classList.contains("show")){
         selectedCards.push(e.target);
@@ -65,4 +90,13 @@ board.addEventListener("click", function(e){
             });
         }
     } 
+});
+
+resetButton.addEventListener("click", resetBoard);
+confirmReplay.addEventListener("click", function(){
+    resetBoard();
+    document.querySelector(".modal-backdrop").removeAttribute("style", "display:block;");
+})
+disfirmReplay.addEventListener("click", function(){
+    document.querySelector(".modal").innerHTML = "<h1>Thanks for playing!</h2>";
 });
