@@ -1,4 +1,6 @@
-const icons = ["cogs", "chrome", "apple", "google", "git", "medium", "firefox", "cubes", "code", "edge", "envira", "wordpress", "android"];
+//Icons used of which 8 random ones are chosen
+
+const icons = ["cogs", "chrome", "apple", "google", "git", "medium", "firefox", "cubes", "code", "edge", "envira", "wordpress", "android", "github", "amazon", "codepen"];
 function generateRandom(length, maxValue){
     result = [];
     for(let i=0;i<length;i++){
@@ -10,8 +12,10 @@ function generateRandom(length, maxValue){
     }
     return result;
 }
+//Function for generating the positions and chosen icons for the board
+
 function generateBoard(){
-    let iconSet = generateRandom(8,12);
+    let iconSet = generateRandom(8,icons.length-1);
     let positions = generateRandom(16,16);
     let newArray = [];
     for(let i=0;i<positions.length;i++){
@@ -25,6 +29,8 @@ function generateBoard(){
 };
 generateBoard();
 
+//Function for resetting the icons and position on the board, also the rating and previous matched cards
+
 function resetBoard(){
     setTimeout(generateBoard,550);
     moves = 0;
@@ -33,29 +39,64 @@ function resetBoard(){
     }
     selectedCards = [];
     document.querySelector(".moves").innerHTML = moves;
-    let stars = document.querySelector(".stars").children.length;
-    while(stars < 3){
-        let li = document.createElement("LI");
-        let i = document.createElement("I");
-        i.classList.add("fa", "fa-star");
-        li.appendChild(i);
-        document.querySelector(".stars").appendChild(li);
-        stars++;
+    
+    for(let i=0;i<stars.length;i++){
+        stars[i].firstChild.classList.remove("gray-star");
+        stars[i].firstChild.classList.add("gold-star");
+    };
+    startgame = 0;
+    document.querySelector(".timer").innerHTML = "0:00";
+    timerCount = 0;
+    clearInterval(timer);
+}
+
+//Timer function
+
+function Timer() {
+    timerCount++
+    let minutes = Math.floor((timerCount % 3600) / 60); 
+    let seconds = Math.floor(timerCount % 60);
+    if(seconds<10){
+        seconds = "0" + String(seconds);
     }
-};
-let board = document.querySelector(".deck");
-var selectedCards = [];
-let winCondition = false;
+    document.querySelector(".timer").innerHTML = minutes+":"+seconds;
+}
+
+//intialisation of variables
+
+let timerCount = 0;
+let timer;
+const board = document.querySelector(".deck");
+let selectedCards = [];
+let startgame = 0;
+let stars = document.querySelector(".stars").children;
 let moves = 0;
 let resetButton = document.querySelector(".restart").firstElementChild;
-let confirmReplay = document.getElementById("yes");
-let disfirmReplay = document.getElementById("no");
+let confirmReplay = document.querySelector(".replay-button");
+
+//Event listener for cards
 
 board.addEventListener("click", function(e){
+
+    //if the game just started (startgame = 1) then start the timer once
+
+    startgame++;
+    if(startgame == 1){
+        timer = setInterval(Timer, 1000);
+    }
+
+    //checks if the clicked element is a card that wasn't previous matched of clicked
+
     if(e.target.classList.contains("card") && !e.target.classList.contains("match") && !e.target.classList.contains("show")){
         selectedCards.push(e.target);
         e.target.classList.add("show", "open");
+
+        //chekc if two cards were selected
+
         if(selectedCards.length == 2){
+
+            //checks if the cards are matched
+
             if(selectedCards[0].firstChild.classList.value == selectedCards[1].firstChild.classList.value){
                 selectedCards[0].classList.add("match");
                 selectedCards[0].classList.remove("show", "open");
@@ -73,13 +114,33 @@ board.addEventListener("click", function(e){
             }
             moves++;
             document.querySelector(".moves").innerHTML = moves;
-            if(moves == 22 || moves == 35 || moves == 50){
-                document.querySelector(".stars").firstElementChild.remove();
+
+            //checks the number of moves and substract stars
+
+            if(moves == 22){
+                stars[0].firstChild.classList.add("gray-star");
+                stars[0].firstChild.classList.remove("gold-star");
+            }else if(moves == 35){
+                stars[1].firstChild.classList.add("gray-star");
+                stars[1].firstChild.classList.remove("gold-star");
+            }else if(moves == 50){
+                stars[2].firstChild.classList.add("gray-star");
+                stars[2].firstChild.classList.remove("gold-star");
             }
         }
         const matchedCards = document.getElementsByClassName("match");
+        
+        //Display modal when the game is won
+
         if(matchedCards.length == 16){
-            winCondition = true;
+            let ratingWrap = document.createElement("DIV");
+            let score = document.querySelector(".stars").cloneNode(true);
+            ratingWrap.classList.add("rating-wrap");
+            ratingWrap.appendChild(score);
+            clearInterval(timer);
+            let gametime = document.querySelector(".timer").cloneNode(true);
+            document.querySelector("#time").appendChild(gametime);
+            document.querySelector("#rating").appendChild(ratingWrap);
             document.querySelector(".modal-backdrop").setAttribute("style", "display:block;");
             document.querySelector(".modal").removeAttribute("close");
             document.querySelector(".modal").setAttribute("open","");
@@ -92,11 +153,13 @@ board.addEventListener("click", function(e){
     } 
 });
 
+//Event listener for the reset button
+
 resetButton.addEventListener("click", resetBoard);
 confirmReplay.addEventListener("click", function(){
     resetBoard();
     document.querySelector(".modal-backdrop").removeAttribute("style", "display:block;");
-})
-disfirmReplay.addEventListener("click", function(){
-    document.querySelector(".modal").innerHTML = "<h1>Thanks for playing!</h2>";
 });
+
+
+

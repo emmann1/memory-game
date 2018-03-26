@@ -6,6 +6,7 @@ html {
 *::before,
 *::after {
     box-sizing: inherit;
+    padding: 0;
 }
 
 html,
@@ -56,6 +57,10 @@ h1 {
     cursor: pointer;
 }
 
+.timer {
+    margin: 0 0 0 10px;
+}
+
 .deck {
     width: 660px;
     min-height: 680px;
@@ -93,13 +98,13 @@ h1 {
 }
 
 .deck .card.show {
-    font-size: 33px;
+    font-size: 3em;
 }
 
 .deck .card.match {
     cursor: default;
     background: #02ccba;
-    font-size: 33px;
+    font-size: 3em;
     transition: 100ms;
     animation-name: rotate;
     animation-duration: 300ms;
@@ -131,10 +136,22 @@ h1 {
     background: #fff;
 }
 
-.confirmation {
-    display: inline;
-    margin: 0 10px;
+.replay-button {
+    font-size: 1.5em;
+    background: #02ccba;
     cursor: pointer;
+    width: 30%;
+    color: #fff;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.gray-star {
+    color: #aaa;
+}
+
+.gold-star {
+    color: gold;
 }
 
 .modal-backdrop {
@@ -146,4 +163,17 @@ h1 {
     z-index: 1030;
     background: rgba(51, 51, 51, 0.664);
     display:none;
+}
+
+.rating-wrap {
+    font-size: 2em;
+    margin: 0;
+    padding: 0;
+}
+
+.rating-wrap .stars li {
+    list-style: none;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
 }

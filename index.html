@@ -7,7 +7,7 @@
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.css">
+  <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
   <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -22,12 +22,13 @@
     </div>
     <section class="score-panel">
       <ul class="stars">
-        <li><i class="fa fa-star"></i></li>
-        <li><i class="fa fa-star"></i></li>
-        <li><i class="fa fa-star"></i></li>
+        <li><i class="fa fa-star gold-star"></i></li>
+        <li><i class="fa fa-star gold-star"></i></li>
+        <li><i class="fa fa-star gold-star"></i></li>
       </ul>
 
       <span class="moves">0</span> Moves
+      <span class="timer">0:00</span>
       <div class="restart">
         <i class="fa fa-repeat"></i>
       </div>
@@ -54,10 +55,11 @@
       <div class="modal-backdrop">
         <dialog class="modal" close>
           <h1>Good job!</h1>
-          <p>You completed the game in time with the rating of stars</p>
-          <p>Play again?</p>
-          <p id="yes" class="confirmation">Yes</p>
-          <p id="no" class="confirmation">No</p>
+          <p>You have completed the game in:</p>
+          <p id="time"></p>
+          <p> with the rating of:</p>
+          <p id="rating"></p>
+          <p class="replay-button">Play again?</p>
         </dialog>
       </div>
     </main>
