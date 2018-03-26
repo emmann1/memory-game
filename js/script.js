@@ -48,6 +48,8 @@ function resetBoard(){
     document.querySelector(".timer").innerHTML = "0:00";
     timerCount = 0;
     clearInterval(timer);
+    document.querySelector("#time").firstElementChild.remove();
+    document.querySelector("#rating").firstElementChild.remove();
 }
 
 //Timer function
