@@ -185,3 +185,9 @@ h1 {
 .leaderboard {
     margin: 0 10px;
 }
+
+.leaderboard-items {
+    list-style: none;
+    height: 480px;
+    overflow: auto;  
+}
