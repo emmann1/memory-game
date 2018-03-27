@@ -80,16 +80,17 @@ let confirmReplay = document.querySelector(".replay-button");
 
 board.addEventListener("click", function(e){
 
-    //if the game just started (startgame = 1) then start the timer once
-
-    startgame++;
-    if(startgame == 1){
-        timer = setInterval(Timer, 1000);
-    }
+    
 
     //checks if the clicked element is a card that wasn't previous matched of clicked
 
     if(e.target.classList.contains("card") && !e.target.classList.contains("match") && !e.target.classList.contains("show")){
+        //if the game just started (startgame = 1) then start the timer once
+
+        startgame++;
+        if(startgame == 1){
+            timer = setInterval(Timer, 1000);
+        }
         selectedCards.push(e.target);
         e.target.classList.add("show", "open");
 
