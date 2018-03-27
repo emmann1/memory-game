@@ -177,3 +177,11 @@ h1 {
     padding: 0;
     margin: 0;
 }
+
+#score-form {
+    margin: 10px 0;
+}
+
+.leaderboard {
+    margin: 0 10px;
+}

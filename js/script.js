@@ -1,6 +1,9 @@
 //Icons used of which 8 random ones are chosen
 
 const icons = ["cogs", "chrome", "apple", "google", "git", "medium", "firefox", "cubes", "code", "edge", "envira", "wordpress", "android", "github", "amazon", "codepen"];
+
+//Generate random numbers
+
 function generateRandom(length, maxValue){
     result = [];
     for(let i=0;i<length;i++){
@@ -48,26 +51,56 @@ function resetBoard(){
     document.querySelector(".timer").innerHTML = "0:00";
     timerCount = 0;
     clearInterval(timer);
-    document.querySelector("#time").firstElementChild.remove();
-    document.querySelector("#rating").firstElementChild.remove();
+    if(document.querySelector("#time").firstElementChild != null || document.querySelector("#rating").firstElementChild != null){
+        document.querySelector("#time").firstElementChild.remove();
+        document.querySelector("#rating").firstElementChild.remove();
+    }
 }
 
 //Timer function
 
 function Timer() {
-    timerCount++
-    let minutes = Math.floor((timerCount % 3600) / 60); 
-    let seconds = Math.floor(timerCount % 60);
+    timerCount+=5;
+    let minutes = Math.floor((timerCount % 360000) / 6000); 
+    let seconds = Math.floor((timerCount % 6000) / 100);
+    let miliseconds = Math.floor(timerCount % 100);
     if(seconds<10){
         seconds = "0" + String(seconds);
     }
-    document.querySelector(".timer").innerHTML = minutes+":"+seconds;
+    if(miliseconds<10){
+        miliseconds = "0" + String(miliseconds);
+    }
+    document.querySelector(".timer").innerHTML = minutes+":"+seconds+":"+miliseconds;
 }
+
+function setScore() {
+    let xhttp = new XMLHttpRequest();
+    const time = String(document.querySelector("#time").innerText);
+    const score = document.querySelector("#rating").querySelectorAll(".gold-star").length;
+    const name = String(document.querySelector("#score-input").value);
+    xhttp.open("POST", "lib/put.php?name="+name+"&time="+time+"&stars="+score, true);
+    xhttp.send();
+    console.log("name="+name+"&time="+time+"&stars="+score);
+}
+
+function getScore() {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            leaderboard = JSON.parse(this.responseText);
+       }
+    };
+    xhttp.open("POST", "lib/get.php", true);
+    xhttp.send();
+}
+
+getScore();
 
 //intialisation of variables
 
 let timerCount = 0;
 let timer;
+let leaderboard;
 const board = document.querySelector(".deck");
 let selectedCards = [];
 let startgame = 0;
@@ -80,16 +113,15 @@ let confirmReplay = document.querySelector(".replay-button");
 
 board.addEventListener("click", function(e){
 
-    
-
     //checks if the clicked element is a card that wasn't previous matched of clicked
 
     if(e.target.classList.contains("card") && !e.target.classList.contains("match") && !e.target.classList.contains("show")){
+
         //if the game just started (startgame = 1) then start the timer once
 
         startgame++;
         if(startgame == 1){
-            timer = setInterval(Timer, 1000);
+            timer = setInterval(Timer, 50);
         }
         selectedCards.push(e.target);
         e.target.classList.add("show", "open");
@@ -164,5 +196,8 @@ confirmReplay.addEventListener("click", function(){
     document.querySelector(".modal-backdrop").removeAttribute("style", "display:block;");
 });
 
-
+document.querySelector("#score-submit").addEventListener("click", function(e){
+    e.preventDefault();
+    setScore();
+});
 
