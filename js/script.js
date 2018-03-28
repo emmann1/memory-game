@@ -78,9 +78,11 @@ function setScore() {
     const time = String(document.querySelector("#time").innerText);
     const score = document.querySelector("#rating").querySelectorAll(".gold-star").length;
     const name = String(document.querySelector("#score-input").value);
+    xhttp.onreadystatechange = function() {
+        window.location.reload();
+    }
     xhttp.open("POST", "lib/put.php?name="+name+"&time="+time+"&stars="+score, true);
     xhttp.send();
-    console.log("name="+name+"&time="+time+"&stars="+score);
 }
 
 function getScore() {
@@ -222,8 +224,6 @@ document.querySelector(".leaderboard").addEventListener("click", function(){
     leaderboard.sort(function(a,b) {
         return (a.time > b.time) ? 1 : ((b.time > a.time) ? -1 : 0);
     });
-    console.log(leaderboard);
-
     leaderboard.forEach(function(el, id){
         let list = document.createElement("LI");
         list.innerHTML =  "<span class='leaderboard-span'></span>"+(id+1)+".<span class='leaderboard-span'>"+el.name+"</span><span class='leaderboard-span'>"+el.time+"</span><span class='leaderboard-span'>"+el.stars+" stars</span>";
