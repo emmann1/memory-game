@@ -176,12 +176,18 @@ board.addEventListener("click", function(e){
             let gametime = document.querySelector(".timer").cloneNode(true);
             document.querySelector("#time").appendChild(gametime);
             document.querySelector("#rating").appendChild(ratingWrap);
+            document.querySelector("#leaderboard-modal").removeAttribute("open");
+            document.querySelector("#leaderboard-modal").setAttribute("close","");
             document.querySelector(".modal-backdrop").setAttribute("style", "display:block;");
             document.querySelector("#game-won").removeAttribute("close");
             document.querySelector("#game-won").setAttribute("open","");
             document.querySelector(".modal-backdrop").addEventListener("click", function(e){
                 if(e.target == document.querySelector(".modal-backdrop")){
                     document.querySelector(".modal-backdrop").removeAttribute("style", "display:block;");
+                    document.querySelector("#game-won").removeAttribute("open");
+                    document.querySelector("#game-won").setAttribute("close","");
+                    document.querySelector("#leaderboard-modal").removeAttribute("open");
+                    document.querySelector("#leaderboard-modal").setAttribute("close","");
                 }
             });
         }
@@ -210,22 +216,17 @@ document.querySelector(".leaderboard").addEventListener("click", function(){
             document.querySelector(".modal-backdrop").removeAttribute("style", "display:block;");
         }
     });
-    let newLeaderboard = [];
-    leaderboard.forEach(function(el){
-        let splitTime = el.time.split(":");
-        for(let i=0;i<newLeaderboard.length;i++){
-            if(el.time > newLeaderboard[i]){
-                newLeaderboard.splice(i+1,0, el);
-            }else{
-                newLeaderboard.splice(i-1,0, el);
-            }
-        }
+    if(document.querySelector(".leaderboard-items").children.length > 0){
+        document.querySelector(".leaderboard-items").innerHTML = "";
+    }
+    leaderboard.sort(function(a,b) {
+        return (a.time > b.time) ? 1 : ((b.time > a.time) ? -1 : 0);
     });
-    console.log(newLeaderboard);
+    console.log(leaderboard);
 
-    leaderboard.forEach(function(el){
+    leaderboard.forEach(function(el, id){
         let list = document.createElement("LI");
-        list.innerText =  el.name+" "+el.time+" "+el.stars;
+        list.innerHTML =  "<span class='leaderboard-span'></span>"+(id+1)+".<span class='leaderboard-span'>"+el.name+"</span><span class='leaderboard-span'>"+el.time+"</span><span class='leaderboard-span'>"+el.stars+" stars</span>";
         document.querySelector(".leaderboard-items").appendChild(list);
     })
 });
