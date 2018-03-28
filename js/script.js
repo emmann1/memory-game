@@ -48,7 +48,7 @@ function resetBoard(){
         stars[i].firstChild.classList.add("gold-star");
     };
     startgame = 0;
-    document.querySelector(".timer").innerHTML = "0:00";
+    document.querySelector(".timer").innerHTML = "0:00:00";
     timerCount = 0;
     clearInterval(timer);
     if(document.querySelector("#time").firstElementChild != null || document.querySelector("#rating").firstElementChild != null){
