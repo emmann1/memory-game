@@ -15,11 +15,14 @@
 <body>
   <div class="container">
     <header>
+      <!-- Title -->
       <h1>Memory Game</h1>
     </header>
+    <!-- Game information and how to play -->
     <div class="game-info">
       <p>How to play: Click on any cards to reveal it and try to match two identical cards in the fastest time. At the end you can publish your score to the leaderboard. <strong>Have fun!</strong></p>
     </div>
+    <!-- Score panel -->
     <section class="score-panel">
       <ul class="stars">
         <li><i class="fa fa-star gold-star"></i></li>
@@ -35,6 +38,7 @@
       </div>
     </section>
     <main>
+      <!-- Main game board -->
       <ul class="deck">
           <li class="card"><i class="fa"></i></li>
           <li class="card"><i class="fa"></i></li>
@@ -54,6 +58,7 @@
           <li class="card"><i class="fa"></i></li>
       </ul>
       <div class="modal-backdrop">
+        <!-- Modal for when the game is won -->
         <dialog id="game-won" class="modal" close>
           <h1>Good job!</h1>
           <p>You have completed the game in:</p>
@@ -66,13 +71,14 @@
           </form>
           <p class="replay-button">Play again?</p>
         </dialog>
-
+        <!-- Modal for leaderboard -->
         <dialog id="leaderboard-modal" class="modal" close>
             <h1>LeaderBoard</h1>
             <ul class="leaderboard-items"></ul>
         </dialog>
       </div>
     </main>
+    <!-- Footer section -->
     <footer> 
       <p> Made with ♥ by <a href="https://www.emares.ro">emanuel.mares</a></p>
     </footer>
