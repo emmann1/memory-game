@@ -73,6 +73,8 @@ function Timer() {
     document.querySelector(".timer").innerHTML = minutes+":"+seconds+":"+miliseconds;
 }
 
+//Function to insert scores into database
+
 function setScore() {
     let xhttp = new XMLHttpRequest();
     const time = String(document.querySelector("#time").innerText);
@@ -84,6 +86,8 @@ function setScore() {
     xhttp.open("POST", "lib/put.php?name="+name+"&time="+time+"&stars="+score, true);
     xhttp.send();
 }
+
+//Function to retrieve the scores from the database
 
 function getScore() {
     let xhttp = new XMLHttpRequest();
@@ -204,10 +208,14 @@ confirmReplay.addEventListener("click", function(){
     document.querySelector(".modal-backdrop").removeAttribute("style", "display:block;");
 });
 
+//Event listener for submiting the score to the databse
+
 document.querySelector("#score-submit").addEventListener("click", function(e){
     e.preventDefault();
     setScore();
 });
+
+//Event listener for leaderboard button to display modal with the scores
 
 document.querySelector(".leaderboard").addEventListener("click", function(){
     document.querySelector(".modal-backdrop").setAttribute("style", "display:block;");
