@@ -61,6 +61,11 @@ h1 {
     margin: 0 0 0 10px;
 }
 
+.game-info {
+    width: 600px;
+    text-align: center;
+}
+
 .deck {
     width: 680px;
     min-height: 680px;
@@ -215,9 +220,39 @@ h1 {
     .modal {
         top: 10vh;
         width: 90%;
+        max-height: 70vh;
     }
     
     .replay-button {
         width:50%;
+    }
+
+    .game-info {
+        width: 100%;
+    }
+
+    .leaderboard-items {
+        height: 60vh;
+    }
+}
+
+@media screen and (max-width: 680px) and (orientation : landscape) {
+    .leaderboard-items {
+        height: 45vh;
+    }
+
+    .deck {
+        min-height: 60vh;
+    }
+
+    .deck .card {
+        width: 11vw;
+        height: 11vw;
+    }
+
+    .modal {
+        top: 2vh;
+        font-size: 0.8em;
+        max-height: 90vh;
     }
 }
