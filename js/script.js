@@ -77,7 +77,7 @@ function Timer() {
 
 function setScore() {
     let xhttp = new XMLHttpRequest();
-    const time = String(document.querySelector("#time").innerText);
+    const time = String(document.querySelector(".timer").innerText);
     const score = document.querySelector("#rating").querySelectorAll(".gold-star").length;
     const name = String(document.querySelector("#score-input").value);
     xhttp.onreadystatechange = function() {
@@ -164,9 +164,6 @@ board.addEventListener("click", function(e){
             }else if(moves == 35){
                 stars[1].firstChild.classList.add("gray-star");
                 stars[1].firstChild.classList.remove("gold-star");
-            }else if(moves == 50){
-                stars[2].firstChild.classList.add("gray-star");
-                stars[2].firstChild.classList.remove("gold-star");
             }
         }
         const matchedCards = document.getElementsByClassName("match");
@@ -179,8 +176,10 @@ board.addEventListener("click", function(e){
             ratingWrap.classList.add("rating-wrap");
             ratingWrap.appendChild(score);
             clearInterval(timer);
-            let gametime = document.querySelector(".timer").cloneNode(true);
-            document.querySelector("#time").appendChild(gametime);
+            let gametime = document.querySelector(".timer").innerText;
+            let noMoves = document.querySelector(".moves").innerText;
+            document.querySelector("#time").innerText = gametime;
+            document.querySelector("#no-moves").innerText = noMoves+" Moves";
             document.querySelector("#rating").appendChild(ratingWrap);
             document.querySelector("#leaderboard-modal").removeAttribute("open");
             document.querySelector("#leaderboard-modal").setAttribute("close","");
