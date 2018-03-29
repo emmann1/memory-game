@@ -173,6 +173,10 @@ h1 {
     background: #fff;
 }
 
+.modal p {
+    max-width: 480px;
+}
+
 .modal-backdrop {
     position: fixed;
     top: 0;
