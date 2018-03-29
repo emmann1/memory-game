@@ -51,8 +51,8 @@ function resetBoard(){
     document.querySelector(".timer").innerHTML = "0:00:00";
     timerCount = 0;
     clearInterval(timer);
-    if(document.querySelector("#time").firstElementChild != null || document.querySelector("#rating").firstElementChild != null){
-        document.querySelector("#time").firstElementChild.remove();
+    if(document.querySelector("#time").innerText != "" || document.querySelector("#rating").firstElementChild != null){
+        document.querySelector("#time").innerText = "";
         document.querySelector("#rating").firstElementChild.remove();
     }
 }
